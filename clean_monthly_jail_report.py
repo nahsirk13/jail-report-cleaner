@@ -173,7 +173,7 @@ def fully_process_excel(filepath):
     # clean jurisdiction name
     df = clean_jurisdiction_name(df)
 
-    # test to see dtypes by keyword (commented out)
+    # tests to see dtypes by keyword (commented out)
     # print(df.dtypes)
     # print(get_dataframe_by_col_keywords(df, "#").dtypes)
     # print(get_dataframe_by_col_keywords(df, "date").dtypes)
@@ -189,7 +189,6 @@ def fully_process_excel(filepath):
     cast_col_by_keyword(df, "occurrences", "int")
 
     cast_col_by_keyword(df, "date", "datetime")
-
 
     name = filepath.split("/")[-1].split(".")[0]  #get name of file by splitting/removing the directory path
 
