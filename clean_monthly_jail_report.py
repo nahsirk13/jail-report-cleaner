@@ -1,5 +1,4 @@
-import pandas as pd   #using alias "pd" for easy referencing
-import numpy as np
+import pandas as pd
 
 
 def load_excel_file(filepath, n_preview_rows=3):
@@ -52,7 +51,7 @@ def make_report_date_column(data_frame):
         data_frame (pandas.DataFrame): source dataframe without report_date column
 
     Returns:
-        pandas.DataFrame: New dataframe
+        pandas.DataFrame: New dataframe with changes
     """
 
     # convert year and month columns to string
@@ -72,9 +71,6 @@ def make_report_date_column(data_frame):
     return data_frame
 
 
-    # Only keeps county name in jurisdiction name column. Assumes column names in snakecase and general format
-    #      of jurisdiction name in "<county name> Sherrif's ...> format, raises value error if not.
-    #      Also makes sure the column is second column in dataframe.
 
 def clean_jurisdiction_name(data_frame):
     """
@@ -117,11 +113,9 @@ def clean_jurisdiction_name(data_frame):
     return data_frame
 
 
-    # Returns data frame only with columns
-    # params: data_frame, keyword (string)
 def get_dataframe_by_col_keywords(data_frame, keyword):
     """
-    Returns data frame only with columns matching keyword
+    Returns data frame only with columns matching keyword, useful for test printing data types by keyword
 
     Args:
         data_frame (pandas.DataFrame): Source dataframe/table
@@ -139,54 +133,73 @@ def get_dataframe_by_col_keywords(data_frame, keyword):
     new_df = pd.DataFrame(data_frame[series])
     return new_df
 
+
 def cast_col_by_keyword(data_frame, keyword, type):
+    """
+    Returns data frame only with columns matching keyword, useful for test printing data types by keyword
+
+    Args:
+        data_frame (pandas.DataFrame): Source dataframe/table
+        keyword (string): Keyword to search columns for
+
+    Returns:
+        pandas.DataFrame: Data frame only with columns matching keyword
+    """
     for col in data_frame.columns:
         if keyword.lower() in col.lower():
-            try:
-                if type == 'datetime':
-                    data_frame[col] = pd.to_datetime(data_frame[col], errors='coerce')
-                elif type == 'int':
-                    data_frame[col] = pd.to_numeric(data_frame[col], errors='coerce').astype('Int64')
-                elif type == 'float':
-                    data_frame[col] = pd.to_numeric(data_frame[col], errors='coerce')
-                elif type == 'str':
-                    data_frame[col] = data_frame[col].astype(str)
-                else:
-                    data_frame[col] = data_frame[col].astype(type)
-            except Exception as e:
-                print(f"[Warning] Could not cast column '{col}': {e}")
+            if type == 'datetime' or type == 'date':
+                data_frame[col] = pd.to_datetime(data_frame[col], errors='coerce')  # coerce results in NaT or NaN if unmatching type found
+            elif type == 'int' or type == 'integer':
+                data_frame[col] = pd.to_numeric(data_frame[col], errors='coerce').astype('Int64')
+            elif type == 'float':
+                data_frame[col] = pd.to_numeric(data_frame[col], errors='coerce')
+            elif type == 'str' or type == 'string' :
+                data_frame[col] = data_frame[col].astype(str)
+            else:
+                print("Invalid type argument entered. Options are 'datetime', 'int', 'float', and 'str'")
     return data_frame
-    if keyword.lower() in col.lower():
 
 
+def fully_process_excel(filepath):
+    # load raw excel file
+    df = load_excel_file(filepath, 5)
 
-
-
-
-
-
-
-
-# test code
-if __name__ == "__main__":
-
-    #load raw excel file
-    df = load_excel_file("data/july_2024.xlsx", 5)
-
-    #turn to snake case
+    # turn to snake case
     df.columns = make_columns_to_snake_case(df.columns)
 
     # report date func
     df = make_report_date_column(df)
 
-
     # clean jurisdiction name
     df = clean_jurisdiction_name(df)
 
-    # test to see dtypes by keyword
-    print(get_dataframe_by_col_keywords(df, "#").dtypes)
-    print(get_dataframe_by_col_keywords(df, "date").dtypes)
-    print(df.dtypes)
+    # test to see dtypes by keyword (commented out)
+    # print(df.dtypes)
+    # print(get_dataframe_by_col_keywords(df, "#").dtypes)
+    # print(get_dataframe_by_col_keywords(df, "date").dtypes)
 
+    #cast data types based on keywords contained in them observed in tests
+    cast_col_by_keyword(df, "#", "int")
+    cast_col_by_keyword(df, "encounters", "int")
+    cast_col_by_keyword(df, "inmates", "int")
+    cast_col_by_keyword(df, "cases", "int")
+    cast_col_by_keyword(df, "sentenced", "int")
+    cast_col_by_keyword(df, "total", "int")
+    cast_col_by_keyword(df, "appointments", "int")
+    cast_col_by_keyword(df, "occurrences", "int")
+
+    cast_col_by_keyword(df, "date", "datetime")
+
+
+    name = filepath.split("/")[-1].split(".")[0]  #get name of file by splitting/removing the directory path
+
+    df.to_csv(f"processed_data/processed_{name}.csv", index=False)  #finally, output to csv file
+
+
+
+if __name__ == "__main__":
+    fully_process_excel("data/june_2024.xlsx")
+    fully_process_excel("data/july_2024.xlsx")
+    fully_process_excel("data/august_2024.xlsx")
 
 
