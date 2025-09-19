@@ -1,0 +1,9 @@
+# Ignore virtual environment
+.venv/
+
+# Ignore PyCharm project settings
+.idea/
+
+# Optional: system/IDE clutter
+__pycache__/
+.DS_Store
