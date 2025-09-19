@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="214bda80-c8ee-446d-980a-4410c221058f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/PythonProject.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/clean_monthly_jail_report.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/august_2024.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/july_2024.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/june_2024.xlsx" afterDir="false" />
+    <list default="true" id="214bda80-c8ee-446d-980a-4410c221058f" name="Changes" comment="Updated functions">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clean_monthly_jail_report.py" beforeDir="false" afterPath="$PROJECT_DIR$/clean_monthly_jail_report.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +62,27 @@
       <option name="presentableId" value="Default" />
       <updated>1758060215616</updated>
     </task>
+    <task id="LOCAL-00001" summary="Updated functions">
+      <option name="closed" value="true" />
+      <created>1758252269384</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1758252269384</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Updated functions">
+      <option name="closed" value="true" />
+      <created>1758252274326</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1758252274326</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Updated functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated functions" />
   </component>
 </project>
